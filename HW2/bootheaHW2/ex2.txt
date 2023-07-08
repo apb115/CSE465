@@ -1,0 +1,119 @@
+person(al).
+person(andrew).
+person(ben).
+person(carmen).
+person(dan).
+person(damaris).
+person(ethan).
+person(frank).
+person(jessica).
+person(lucas).
+person(mary).
+person(melinda).
+person(monica).
+person(tina).
+person(timothy).
+person(saul).
+
+gender(female).
+gender(non_binary).
+gender(male).
+
+gender_of(carmen, female).
+gender_of(damaris, female).
+gender_of(jessica, female).
+gender_of(mary, female).
+gender_of(monica, female).
+gender_of(melinda, female).
+gender_of(tina, female).
+
+gender_of(al, non_binary).
+
+gender_of(andrew, male).
+gender_of(ben, male).
+gender_of(dan, male).
+gender_of(ethan, male).
+gender_of(frank, male).
+gender_of(lucas, male).
+gender_of(timothy, male).
+gender_of(saul, male).
+
+mother(jessica, mary).
+father(lucas, mary).
+
+mother(tina, saul).
+father(timothy, saul).
+
+mother(mary, andrew).
+mother(mary, damaris).
+mother(mary, ben).
+father(saul, andrew).
+father(saul, damaris).
+father(saul, ben).
+
+mother(jessica, monica).
+father(lucas, monica).
+
+mother(monica, carmen).
+mother(monica, al).
+mother(monica, ethan).
+father(dan, carmen).
+father(dan, al).
+father(dan, ethan).
+
+mother(melinda, frank).
+father(dan, frank).
+
+% ---------------------------------------------------
+
+% TODO:
+
+% Helper - parent
+parent(X, Y) :- father(X, Y).
+parent(X, Y) :- mother(X, Y).
+
+% Helper - child
+child(X, Y) :- father(Y, X).
+child(X, Y) :- mother(Y, X).
+
+% grandmother(X, Y) – X is a grandmother of Y
+grandmother(X, Y) :- gender_of(X, female), child(Y, Z), child(Z, X). 
+
+% Helper - brother
+brother(X, Y) :- parent(Z, X), parent(Z, Y), gender_of(X, male), X != Y.
+
+% Helper - sister
+sister(X, Y) :- parent(Z, X), parent(Z, Y), gender_of(X, female), X != Y.
+
+% Helper - sibling
+sibling(X, Y) :- parent(Z, X), parent(Z, Y), X != Y.
+
+% TODO:
+% niece(X, Y) – X is a niece of Y
+niece(X, Y) :- parent(Z, X), sister(Y, Z), gender_of(X, female).
+niece(X, Y) :- parent(Z, X), brother(Y, Z), gender_of(X, female).
+
+% TODO:
+% full_sibling(X, Y) – X is a full sibling of Y, 
+%                      i.e., X has the same two parents as Y
+full_sibling(X, Y) :- father(Z, X), father(A, Y), mother(B, X), mother(C, Y), Z == A, B == C, X != Y. 
+
+% TODO:
+% half_sibling(X, Y) – X is a half sibling of Y, 
+%                      i.e., X has one parent in common with Y but not the other
+
+half_sibling(X, Y) :- father(Z, X), father(A, Y), mother(B, X), mother(C, Y), Z == A, B != C.
+half_sibling(X, Y) :- father(Z, X), father(A, Y), mother(B, X), mother(C, Y), Z != A, B == C.
+
+% TODO:
+% cousin(X, Y) – X is a first-degree cousin of Y
+cousin(X, Y) :- child(X, Z), sibling(Z, A), child(Y, A).
+
+% ---------------------------------------------------
+
+% Uncomment one or more of the lines below to filter the output
+% #show grandmother/2.
+% #show niece/2.
+% #show full_sibling/2.
+% #show half_sibling/2.
+% #show cousin/2.

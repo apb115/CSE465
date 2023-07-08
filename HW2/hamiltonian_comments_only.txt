@@ -1,0 +1,40 @@
+% Finding Hamiltonian cycles in a directed graph.
+% Problem: Given a directed graph G and an initial vertex v0, find a path
+%          from v0 to v0 that enters each vertex exactly once.
+% A path will be represented by a collections of statements of the form
+% in(v1, v2) for each directed edge from vertex v1 to v2 in the cycle.
+
+% GENERATE
+
+% Path generation using disjunction:
+in(V1, V2) | -in(V1, V2) :- edge(V1, V2).
+
+% TEST/ ELIMINATE
+
+% A path leaves each vertex at most once:
+% We do not want answer sets that contain two (or more)
+% "in edges" that start with the same vertex
+:- in(V, V1), in(V, V2), V1 != V2.
+
+% A path enters each vertex at most once:
+% We do not want answer sets that contain two (or more)
+% "in edges" that end at the same vertex
+:- in(V1, V), in(V2, V), V1 != V2.
+
+% reached(V) holds if the path enters vertex V on its way 
+% from the initial vertex:           
+reached(V) :- in(V1, V); in(V2, V3), in(V3, V).
+
+% Every vertex of the graph must be reached:
+
+
+% DEFINE
+
+% Input graph:
+vertex(a).  vertex(b).  vertex(c).  vertex(d).  vertex(e).
+edge(a,b).  edge(b,c).  edge(c,d).  edge(d,e).
+edge(e,a).  edge(a,e).  edge(d,a).  edge(c,e).
+init(a). 
+
+% Output
+% {in(a,b), in(b, c), in(c, d), in(d, e), in(e, a)}

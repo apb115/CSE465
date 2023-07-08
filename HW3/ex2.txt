@@ -1,0 +1,77 @@
+% Run using the command
+% clingo ex2.txt 0
+
+#const n=6.
+
+person(1..n).
+spot(1..n).
+
+% -----------------------------------------------------
+% Test problem
+
+likes(1, 2).
+likes(3, 4).
+
+likes(X, Y) :- likes(Y, X).
+
+dislikes(3, 1).
+dislikes(4, 1).
+dislikes(4, 2).
+dislikes(5, 1).
+dislikes(5, 2).
+dislikes(5, 3).
+dislikes(6, 2).
+dislikes(6, 3).
+
+dislikes(X, Y) :- dislikes(Y, X).
+
+% End of test problem
+% -----------------------------------------------------
+
+% Instruction:
+% Use the predicate assigned(P, S) to say that person P is assigned spot S
+
+%%% DEFINE
+% Helper Predicate:
+% adjacent(S1, S2) - spots S1 and S2 are adjacent, i.e., next to each other
+
+adjacent(S, S+1) :- spot(S), spot(S+1).
+adjacent(n, 1).
+
+% TODO by you: say that adjacent is a symmetric relation.
+adjacent(S1, S2) :- adjacent(S2, S1).
+
+
+% TODO by you: Say that no other spots are adjacent.
+-adjacent(S, N) :- not adjacent(S, N), spot(S), spot(N).
+
+
+%%% GENERATE candidate solutions
+% TODO by you
+1{assigned(P, S) : person(P)}1 :- spot(S).
+1{assigned(P, S) : spot(S)}1 :- person(P).
+
+
+%%% TEST whether a candidate solution is a real solution or not
+% TODO by you
+% ??????
+:- assigned(P, S), assigned(P2, S2), adjacent(S, S2), dislikes(P, P2).
+:- assigned(P, S), assigned(P2, S2), -adjacent(S, S2), likes(P, P2).
+
+
+% -----------------------------------------------------
+% For display purposes only
+
+% arrangement(P1, P2, P3, P4, P5, P6) says that person P1 sits on spot1, P2 on spot 2, etc.
+
+arrangement(P1, P2, P3, P4, P5, P6) :- 
+	assigned(P1, 1), 
+	assigned(P2, 2), 
+	assigned(P3, 3), 
+	assigned(P4, 4), 
+	assigned(P5, 5),
+	assigned(P6, 6).
+
+% You can filter your output as follows (uncomment the line below):
+#show arrangement/6.
+%#show assigned/2.

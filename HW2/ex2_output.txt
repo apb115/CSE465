@@ -1,0 +1,40 @@
+Note: the order between literals in an answer set does not matter.
+I will show below what the output should contain when you filter it
+for certain predicates:
+
+#show grandmother/2.
+
+grandmother(jessica,andrew) grandmother(jessica,damaris) 
+grandmother(jessica,ben) grandmother(jessica,carmen) 
+grandmother(jessica,al) grandmother(jessica,ethan) 
+grandmother(tina,andrew) grandmother(tina,damaris) 
+grandmother(tina,ben)
+
+
+#show niece/2.
+
+niece(carmen,mary) niece(damaris,monica)
+
+
+#show full_sibling/2.
+
+full_sibling(monica,mary) full_sibling(damaris,andrew) full_sibling(ben,andrew)
+full_sibling(andrew,damaris) full_sibling(ben,damaris) full_sibling(andrew,ben) 
+full_sibling(damaris,ben) full_sibling(mary,monica) full_sibling(al,carmen) 
+full_sibling(ethan,carmen) full_sibling(carmen,al) full_sibling(ethan,al) 
+full_sibling(carmen,ethan) full_sibling(al,ethan)
+
+
+#show half_sibling/2.
+
+half_sibling(frank,carmen) half_sibling(frank,al) half_sibling(frank,ethan) 
+half_sibling(carmen,frank) half_sibling(al,frank) half_sibling(ethan,frank)
+
+
+#show cousin/2.
+
+cousin(carmen,andrew) cousin(al,andrew) cousin(ethan,andrew) 
+cousin(carmen,damaris) cousin(al,damaris) cousin(ethan,damaris) 
+cousin(carmen,ben) cousin(al,ben) cousin(ethan,ben) cousin(andrew,carmen) 
+cousin(damaris,carmen) cousin(ben,carmen) cousin(andrew,al) cousin(damaris,al) 
+cousin(ben,al) cousin(andrew,ethan) cousin(damaris,ethan) cousin(ben,ethan)

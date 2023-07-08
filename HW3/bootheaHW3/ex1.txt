@@ -1,0 +1,80 @@
+% Run using the command:
+% clingo ex1.txt
+
+contestant(isaac).
+contestant(marco).
+contestant(sergio).
+contestant(tommy).
+
+sport(basketball).
+sport(football).
+sport(golf).
+sport(hockey).
+
+vote(4).
+vote(11).
+vote(18).
+vote(25).
+
+% We will be using the following predicates to construct the solution
+%   played(C, S) - contestant C played sport S
+%   received(C, N) - contestant C received N votes
+
+1{played(C, S) : contestant(C)}1 :- sport(S).
+1{played(C, S) : sport(S)}1 :- contestant(C).
+
+1{received(C, N) : contestant(C)}1 :- vote(N).
+1{received(C, N) : vote(N)}1 :- contestant(C).
+
+
+% ------------------
+% GENERATE CANDIDATE SOLUTIONS
+
+% TODO: write rules to say that:
+% - there is a one-to-one correspondence between contestants and sports 
+%   (use predicated played)
+%   (i.e., each contestant played exactly one sport and
+%    each sport was played by exactly one contestant)
+%
+%  - there is a one-to-one correspondence between contestants and votes
+%   (use predicated received)
+
+
+% ------------------
+% TEST
+% Use the relations played/2 and received/2 from the comments above
+
+% 1. Tommy played hockey.
+% TODO - encode this hint
+played(tommy, hockey).
+
+% 2. The hockey player received 14 votes more votes than Sergio.
+% TODO - encode this hint
+% Rephrase it as "It is impossible for the hockey player not to 
+%    have received 14 votes more votes than Sergio."
+% Encode it as a constraint.
+% :-  played(x, hockey), -received(x, 18), received(sergio, 4).
+% :-  played(x, hockey), -received(x, 25), received(sergio, 11).
+:- played(X, hockey), received(X, N1), received(sergio, N2), N2+14 != N1.
+
+
+% 3. Isaac is either the golf player or the hockey player.
+% TODO - encode this hint
+:- played(isaac, basketball), played(isaac, football).
+
+
+% 4. Marco is either the contestant who got 25 votes or the golf player.
+% TODO - encode this hint
+received(marco, 25) | played(marco, golf).
+
+% 5. Marco played football.
+% TODO - encode this hint
+played(marco, football).
+
+
+% ------------------
+% DISPLAY
+person(C, S, N) :- played(C, S), received(C, N).
+#show person/3.
+#show played/2.
+#show received/2.

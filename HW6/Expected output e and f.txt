@@ -1,0 +1,28 @@
+EXPECTED OUTPUT FOR e.tmp & e.tsv
+
+sarah.txt
+=========
+top
+<<ID>>
+bottom
+
+fred.txt
+========
+top
+<<ID>>
+bottom
+
+
+Expected output for f.tmp & f.tsv
+
+sarah.txt
+=========
+top
+<<STUFF>>
+bottom
+
+fred.txt
+========
+top
+<<TEST>>
+bottom

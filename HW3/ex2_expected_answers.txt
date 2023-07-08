@@ -1,0 +1,35 @@
+If you do not modify the likes and dislikes facts I provided,
+you should get 12 answer sets.
+
+Make sure to use the command 
+  clingo ex2.txt 0 
+when running your file using the command line, or select 
+  "Enumerate All"
+as the "reasoning mode" when using clingo online.
+
+The order in which you see these answer sets does not matter.
+
+Answer: 1
+arrangement(6,1,2,3,4,5)
+Answer: 2
+arrangement(4,3,2,1,6,5)
+Answer: 3
+arrangement(1,2,3,4,5,6)
+Answer: 4
+arrangement(2,1,6,5,4,3)
+Answer: 5
+arrangement(4,5,6,1,2,3)
+Answer: 6
+arrangement(1,6,5,4,3,2)
+Answer: 7
+arrangement(3,2,1,6,5,4)
+Answer: 8
+arrangement(5,6,1,2,3,4)
+Answer: 9
+arrangement(3,4,5,6,1,2)
+Answer: 10
+arrangement(5,4,3,2,1,6)
+Answer: 11
+arrangement(6,5,4,3,2,1)
+Answer: 12
+arrangement(2,3,4,5,6,1)

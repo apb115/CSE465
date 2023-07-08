@@ -1,0 +1,113 @@
+% To check solutions, run using the command
+% clingo mothers.txt 0
+
+% Facts
+woman(jane).
+woman(laura).
+woman(teresa).
+woman(sarah).
+
+child(brian).
+child(daniel).
+child(charlie).
+child(anne).
+
+age(1..4).
+
+% Output predicates:
+% mother(w, c) - woman w is c's mother
+% age_of(c, a) - c's age is a (c is a years old)
+
+% Helper predicates:
+% older(x, y) - x is older than y
+% oldest(x) - x is the oldest
+% You can use these helper predicates in the rules below
+% We will write rules for them too.
+
+
+% It was Jane's child's birthday party. 
+
+% Brian is not the oldest child.
+% TODO
+-oldest(brian).
+% or :- oldest(brian).
+
+% Sarah had Anne just over a year ago.
+% TODO
+mother(sarah, anne).
+age_of(anne, 1). 
+
+% Laura's child will be 3 next birthday.
+% TODO
+mother(laura, x) :- age_of(x, 2).
+age_of(x, 2) :- mother(laura, x).
+
+% Daniel is older than Charlie. 
+% TODO
+older(daniel, charlie).
+
+% Teresa's child is the oldest. 
+% TODO
+mother(teresa, x) :- oldest(x).
+oldest(x) :- mother(teresa, x). 
+
+% Charlie is older than Laura's child. 
+% TODO
+older(charlie, x) :- mother(laura, x).
+mother(laura, x) :- older(charlie, x). 
+
+
+
+
+
+
+
+
+
+% Helper predicates
+% define:
+% older(x, y) - x is older than y 
+older(x, y) :- age_of(x, a), age_of(y, b), a > b.
+
+
+% oldest(x) - x is the oldest child
+-oldest(x) :- older(y, x).
+oldest(x) :- child(x), not -oldest(x).
+
+
+
+
+
+
+
+
+
+% Generate 
+% TODO - for both mother(w, c) and age_of(c, a)
+% mother(w, c) :- woman(w), child(c). 
+
+mother(w, c) | -mother(w, c) :- woman(w), child(c). 
+
+% Each woman has at most one child
+:- mother(w, c1) , mother(w, c2), c1 != c2.
+
+% Each child has at most one mother
+:- child(w1, c) , mother(w2, c), w1 != w2.
+
+% Each woman has at least one child
+has_child(w) :- mother(w, c).
+:- not has_child(w), woman(w).
+% I don't want answer sets in which there is a woman W
+% for which I cannot infer that she has a child.
+
+% Test
+% TODO - for both mother(w, c) and age_of(c, a)
+1{age_of(c, a) : age(a)}1 :- child(c).
+1{age_of(c, a) : child(c)}1 :- age(a).
+
+% For easier display 
+solution(W, C, A) :- mother(W, C), age_of(C, A).
+
+#show mother/2.
+#show age_of/2.
+#show solution/3.

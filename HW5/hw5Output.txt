@@ -1,0 +1,34 @@
+Notes:
+- Use the ceclnx01 server for this homework
+- On the command line type:
+  scheme48 < hw5.scm
+- for exercise 3. UNION, the order of elements does not matter
+- for exercise 5. GETORDERSSHIPPEDON, make sure you do not have repeated order numbers
+- for exercise 6. TOTALPROFITPROV, make sure you do not include the profit from returned orders
+
+1. MODIT --------------------------------------
+(1 2 0 1 2 0)
+(1 0 1 0 1 0)
+()
+2. DIVISIBLEBY10 --------------------------------------
+(10 700 8000)
+(20)
+()
+3. UNION --------------------------------------
+(3 2 1)
+(4 3 2 1)
+(4 3 2 1)
+(4 3)
+4. NUMZEROS --------------------------------------
+2
+0
+2
+0
+5. GETORDERSSHIPPEDON --------------------------------------
+(44099 23584)
+()
+(54177)
+6. TOTALPROFITPROV --------------------------------------
+529.3399999999999
+96.65999999999998
+#t

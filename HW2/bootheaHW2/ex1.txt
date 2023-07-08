@@ -1,0 +1,49 @@
+% "Dune" is (the title of) a book
+book("Dune").
+% The book "Dune" has 412 pages.
+pages("Dune", 412).
+% The author of the book "Dune" is "Frank Herbert"
+author("Dune", "Frank Herbert").
+% The genre of the book "Dune" is science fiction
+genre("Dune", science_fiction).
+
+% b1 is (the title of) a book
+book(b1).
+% The book b1 has 172 pages
+pages(b1, 172).
+% The genre of the book b1 is mystery
+genre(b1, mystery).
+
+% ------------------------------------
+
+% TODO: Add the English reading for the rule below.
+number(1 .. 1000).
+% 1-1000 are all declared numbers in one line, i.e. number(1), number(2), ..., number(1000).
+
+% TODO: Add the English reading for the rule below.
+-pages(X, N1) :- pages(X, N2), 
+                 N1 != N2, 
+                 number(N1), 
+                 number(N2).
+% The pages of X are not N1 if the pages of X are N2, N1 is not equal to N2, and N1 and N2 are numbers.
+
+% TODO: Add the English reading for the rule below.
+genre(X, mystery) | genre(X, science_fiction) | genre(X, romance) :- book(X).
+% The genre of book X is mystery, or the genre of book X is science fiction, or the genre of book X is romance if there is a book X.
+
+% TODO: Add the English reading for the rule below.
+has_author(X) :- author(X, P).
+% X has an author if X has the author P.
+
+% TODO: Add the English reading for the rule below.
+anonymous_book(X) :- book(X), not has_author(X).
+% X is an anonymous book if X is a book, and the book X does not have an author. 
+
+% TODO: Add the English reading for the rule below.
+:- genre(B, G1), genre(B, G2), G1 != G2.
+% It is impossible for the genre of B to be G1 and the genre of B to be G2 and genre G1 to not be equal to G2.
+
+
+% TODO: Add the English reading for the rule below.
+#show anonymous_book/1.
+% show the output of anonymous books; this takes one parameter hence the /1.

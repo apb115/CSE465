@@ -1,0 +1,1 @@
+person(marco,football,25) person(isaac,golf,11) person(sergio,basketball,4) person(tommy,hockey,18)
